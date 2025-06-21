@@ -17,7 +17,7 @@ public class DetalleVentaController {
 
     @GetMapping("/venta/{ventaId}")
     public ResponseEntity<List<DetalleVenta>> obtenerDetallesPorVenta(
-            @PathVariable Integer ventaId) {
+            @PathVariable Long ventaId) {
         return ResponseEntity.ok(detalleVentaService.findByVentaId(ventaId));
     }
 
@@ -28,8 +28,8 @@ public class DetalleVentaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarDetalleVenta(@PathVariable Integer id) {
-        detalleVentaService.delete(id);
+    public ResponseEntity<Void> eliminarDetalleVenta(@PathVariable Long id) {
+        detalleVentaService.deleteDetalleVentaById(id);
         return ResponseEntity.noContent().build();
     }
 }

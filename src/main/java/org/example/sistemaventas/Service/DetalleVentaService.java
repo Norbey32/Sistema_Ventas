@@ -19,7 +19,7 @@ public class DetalleVentaService {
         return detalleVentaRepository.save(detalle);
     }
 
-    public void deleteByVentaId(Long ventaId) {
-        detalleVentaRepository.deleteByVentaId(ventaId);
+    public void deleteDetalleVentaById(Long ventaId) {
+        detalleVentaRepository.deleteById(ventaId);
     }
 }

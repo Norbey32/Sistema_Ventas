@@ -21,7 +21,7 @@ public class VentaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Venta> obtenerVenta(@PathVariable Integer id) {
+    public ResponseEntity<Venta> obtenerVenta(@PathVariable Long id) {
         Venta venta = ventaService.findById(id);
         return (venta != null)
                 ? ResponseEntity.ok(venta)
@@ -34,7 +34,7 @@ public class VentaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarVenta(@PathVariable Integer id) {
+    public ResponseEntity<Void> eliminarVenta(@PathVariable Long id) {
         ventaService.delete(id);
         return ResponseEntity.noContent().build();
     }

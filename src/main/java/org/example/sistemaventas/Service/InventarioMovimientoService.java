@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Service
@@ -30,11 +31,28 @@ public class InventarioMovimientoService {
         // Registrar movimiento
         InventarioMovimiento movimiento = new InventarioMovimiento();
         movimiento.setProducto(producto);
-        movimiento.setTipoMovimiento(tipo);
+        movimiento.setTipo(TipoMovimiento.valueOf(tipo));
         movimiento.setCantidad(cantidad);
         movimiento.setFechaMovimiento(LocalDateTime.now());
         movimiento.setNota(nota);
 
         return movimientoRepository.save(movimiento);
+    }
+
+    public List<InventarioMovimiento> findAll() {
+        return movimientoRepository.findAll();
+    }
+
+    public InventarioMovimiento findById(Long id) {
+        return movimientoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Movimiento no encontrado"));
+    }
+
+    public InventarioMovimiento save(InventarioMovimiento movimiento) {
+        return movimientoRepository.save(movimiento);
+    }
+
+    public List<InventarioMovimiento> findByProductoId(Long productoId) {
+        return movimientoRepository.findByProductoId(productoId);
     }
 }

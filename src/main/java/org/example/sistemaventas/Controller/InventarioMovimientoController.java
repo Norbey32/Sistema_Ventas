@@ -21,7 +21,7 @@ public class InventarioMovimientoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<InventarioMovimiento> obtenerMovimientoPorId(@PathVariable Integer id) {
+    public ResponseEntity<InventarioMovimiento> obtenerMovimientoPorId(@PathVariable Long id) {
         InventarioMovimiento movimiento = inventarioMovimientoService.findById(id);
         if (movimiento == null) {
             return ResponseEntity.notFound().build();
@@ -37,7 +37,7 @@ public class InventarioMovimientoController {
 
     @GetMapping("/producto/{productoId}")
     public ResponseEntity<List<InventarioMovimiento>> obtenerMovimientosPorProducto(
-            @PathVariable Integer productoId) {
+            @PathVariable Long productoId) {
         return ResponseEntity.ok(inventarioMovimientoService.findByProductoId(productoId));
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/clientes")
@@ -21,8 +22,8 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cliente> obtenerCliente(@PathVariable Integer id) {
-        Cliente cliente = clienteService.findById(id);
+    public ResponseEntity<Optional<Cliente>> obtenerCliente(@PathVariable Long id) {
+        Optional<Cliente> cliente = clienteService.findById(id);
         return (cliente != null)
                 ? ResponseEntity.ok(cliente)
                 : ResponseEntity.notFound().build();
@@ -35,14 +36,14 @@ public class ClienteController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Cliente> actualizarCliente(
-            @PathVariable Integer id,
+            @PathVariable Long id,
             @RequestBody Cliente cliente) {
         return ResponseEntity.ok(clienteService.update(id, cliente));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarCliente(@PathVariable Integer id) {
-        clienteService.delete(id);
+    public ResponseEntity<Void> eliminarCliente(@PathVariable Long id) {
+        clienteService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }

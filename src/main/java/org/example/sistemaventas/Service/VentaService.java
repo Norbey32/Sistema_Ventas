@@ -30,7 +30,7 @@ public class VentaService {
             }
 
             // Actualizar stock
-            productoService.updateStock(producto.getProductoId(), -cantidad);
+            productoService.updateStock(producto.getProducto_id(), -cantidad);
 
             // Calcular subtotal del detalle
             detalle.setSubtotal(detalle.getPrecioUnitario() * cantidad);
@@ -41,7 +41,7 @@ public class VentaService {
         venta.setFechaVenta(LocalDateTime.now());
         venta.setSubtotal(subtotal);
         venta.setTotal(subtotal + venta.getImpuesto() - venta.getDescuento());
-        venta.setEstado("COMPLETADA");
+        venta.setEstado(EstadoVenta.COMPLETADA);
 
         // Guardar venta y detalles
         Venta ventaGuardada = ventaRepository.save(venta);
@@ -49,5 +49,21 @@ public class VentaService {
         detalleVentaRepository.saveAll(detalles);
 
         return ventaGuardada;
+    }
+    public List<Venta> findAll() {
+        return ventaRepository.findAll();
+    }
+
+    public Venta findById(Long id) {
+        return ventaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Venta no encontrada con ID: " + id));
+    }
+
+    public Venta save(Venta venta) {
+        return ventaRepository.save(venta);
+    }
+
+    public void delete(Long id) {
+        ventaRepository.deleteById(id);
     }
 }

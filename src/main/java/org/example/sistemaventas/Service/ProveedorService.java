@@ -31,4 +31,20 @@ public class ProveedorService {
     public List<Proveedor> searchByNombre(String nombre) {
         return proveedorRepository.findByNombreContainingIgnoreCase(nombre);
     }
+    public Proveedor update(Long id, Proveedor proveedor) {
+        Proveedor existingProveedor = proveedorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Proveedor no encontrado"));
+
+        // Actualizar campos
+        existingProveedor.setNombre(proveedor.getNombre());
+        existingProveedor.setEmail(proveedor.getEmail());
+        existingProveedor.setTelefono(proveedor.getTelefono());
+
+        return proveedorRepository.save(existingProveedor);
+    }
+    public void delete(Long id) {
+        Proveedor proveedor = proveedorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Proveedor no encontrado"));
+        proveedorRepository.delete(proveedor);
+    }
 }

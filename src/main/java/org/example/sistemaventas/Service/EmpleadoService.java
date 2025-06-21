@@ -28,6 +28,19 @@ public class EmpleadoService {
         return empleadoRepository.save(empleado);
     }
 
+    public Empleado update(Long id, Empleado empleado) {
+        // Verificar si el empleado existe
+        if (!empleadoRepository.existsById(id)) {
+            throw new RuntimeException("Empleado no encontrado");
+        }
+        // Validar email único
+        if (empleadoRepository.findByEmail(empleado.getEmail()) != null &&
+                !empleadoRepository.findByEmail(empleado.getEmail()).getEmpleado_id().equals(id)) {
+            throw new RuntimeException("El email ya está registrado");
+        }
+        empleado.setEmpleado_id(id);
+        return empleadoRepository.save(empleado);
+    }
     public void deleteById(Long id) {
         empleadoRepository.deleteById(id);
     }
