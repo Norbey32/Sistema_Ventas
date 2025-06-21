@@ -1,6 +1,8 @@
 package org.example.sistemaventas.Model;
 
 import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,23 +18,23 @@ public class Venta {
     private Cliente cliente;
 
     @ManyToOne
-    @JoinColumn(name = "empleado_id", nullable = false)
+    @JoinColumn(name = "empeando_id", nullable = false)
     private Empleado empleado;
 
     @Column(name = "fecha_venta", nullable = false)
     private LocalDateTime fechaVenta;
 
     @Column(precision = 10, scale = 2)
-    private Double subtotal;
+    private BigDecimal subtotal;
 
     @Column(precision = 10, scale = 2)
-    private Double impuesto;
+    private BigDecimal impuesto;
 
     @Column(precision = 10, scale = 2)
-    private Double descuento;
+    private BigDecimal descuento;
 
     @Column(precision = 10, scale = 2)
-    private Double total;
+    private BigDecimal total;
 
     @Enumerated(EnumType.STRING)
     private MetodoPago metodoPago; // Enum: EFECTIVO, TARJETA, etc.
@@ -77,35 +79,35 @@ public class Venta {
         this.fechaVenta = fechaVenta;
     }
 
-    public Double getSubtotal() {
+    public BigDecimal getSubtotal() {
         return subtotal;
     }
 
-    public void setSubtotal(Double subtotal) {
+    public void setSubtotal(BigDecimal subtotal) {
         this.subtotal = subtotal;
     }
 
-    public Double getImpuesto() {
+    public BigDecimal getImpuesto() {
         return impuesto;
     }
 
-    public void setImpuesto(Double impuesto) {
+    public void setImpuesto(BigDecimal impuesto) {
         this.impuesto = impuesto;
     }
 
-    public Double getDescuento() {
+    public BigDecimal getDescuento() {
         return descuento;
     }
 
-    public void setDescuento(Double descuento) {
+    public void setDescuento(BigDecimal descuento) {
         this.descuento = descuento;
     }
 
-    public Double getTotal() {
+    public BigDecimal getTotal() {
         return total;
     }
 
-    public void setTotal(Double total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 

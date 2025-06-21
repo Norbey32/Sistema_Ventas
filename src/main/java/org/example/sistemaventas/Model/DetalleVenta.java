@@ -2,6 +2,8 @@ package org.example.sistemaventas.Model;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "detalle_ventas")
 public class DetalleVenta {
@@ -21,13 +23,13 @@ public class DetalleVenta {
     private Integer cantidad;
 
     @Column(name = "precio_unitario", precision = 10, scale = 2)
-    private Double precioUnitario;
+    private BigDecimal precioUnitario;
 
     @Column(precision = 10, scale = 2)
-    private Double descuento;
+    private BigDecimal descuento;
 
     @Column(precision = 10, scale = 2)
-    private Double subtotal;
+    private BigDecimal subtotal;
 
     // Getters y Setters
 
@@ -63,27 +65,27 @@ public class DetalleVenta {
         this.producto = producto;
     }
 
-    public Double getPrecioUnitario() {
+    public BigDecimal getPrecioUnitario() {
         return precioUnitario;
     }
 
-    public void setPrecioUnitario(Double precioUnitario) {
+    public void setPrecioUnitario(BigDecimal precioUnitario) {
         this.precioUnitario = precioUnitario;
     }
 
-    public Double getDescuento() {
+    public BigDecimal getDescuento() {
         return descuento;
     }
 
-    public void setDescuento(Double descuento) {
+    public void setDescuento(BigDecimal descuento) {
         this.descuento = descuento;
     }
 
-    public Double getSubtotal() {
+    public BigDecimal getSubtotal() {
         return subtotal;
     }
 
-    public void setSubtotal(Double subtotal) {
+    public void setSubtotal(BigDecimal subtotal) {
         this.subtotal = subtotal;
     }
 }

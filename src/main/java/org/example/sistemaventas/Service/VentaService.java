@@ -5,6 +5,8 @@ import org.example.sistemaventas.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,8 +21,8 @@ public class VentaService {
 
     @Transactional
     public Venta crearVenta(Venta venta, List<DetalleVenta> detalles) {
-        // Validar stock y calcular totales
-        double subtotal = 0;
+        BigDecimal subtotal = BigDecimal.ZERO;
+
         for (DetalleVenta detalle : detalles) {
             Producto producto = detalle.getProducto();
             int cantidad = detalle.getCantidad();
@@ -29,21 +31,29 @@ public class VentaService {
                 throw new RuntimeException("Stock insuficiente para: " + producto.getNombre());
             }
 
-            // Actualizar stock
             productoService.updateStock(producto.getProducto_id(), -cantidad);
 
-            // Calcular subtotal del detalle
-            detalle.setSubtotal(detalle.getPrecioUnitario() * cantidad);
-            subtotal += detalle.getSubtotal();
+            // Usa directamente el BigDecimal o convierte adecuadamente
+            BigDecimal precioUnitario = detalle.getPrecioUnitario(); // Si ya es BigDecimal
+
+            BigDecimal subtotalDetalle = precioUnitario.multiply(BigDecimal.valueOf(cantidad));
+
+            // Actualiza esto también (evita doubleValue() si el campo es BigDecimal):
+            detalle.setSubtotal(subtotalDetalle); // Cambia a BigDecimal en DetalleVenta
+
+            subtotal = subtotal.add(subtotalDetalle);
         }
 
-        // Asignar valores a la venta
         venta.setFechaVenta(LocalDateTime.now());
         venta.setSubtotal(subtotal);
-        venta.setTotal(subtotal + venta.getImpuesto() - venta.getDescuento());
+
+        BigDecimal total = subtotal
+                .add(venta.getImpuesto() != null ? venta.getImpuesto() : BigDecimal.ZERO)
+                .subtract(venta.getDescuento() != null ? venta.getDescuento() : BigDecimal.ZERO);
+        venta.setTotal(total);
+
         venta.setEstado(EstadoVenta.COMPLETADA);
 
-        // Guardar venta y detalles
         Venta ventaGuardada = ventaRepository.save(venta);
         detalles.forEach(detalle -> detalle.setVenta(ventaGuardada));
         detalleVentaRepository.saveAll(detalles);

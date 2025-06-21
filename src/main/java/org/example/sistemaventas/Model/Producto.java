@@ -2,6 +2,8 @@ package org.example.sistemaventas.Model;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "productos")
 public class Producto {
@@ -19,7 +21,7 @@ public class Producto {
     private String descripcion;
 
     @Column(name = "precio_unitario", nullable = false, precision = 10, scale = 2)
-    private Double precioUnitario;
+    private BigDecimal precioUnitario;
 
     @Column(name = "stock_actual")
     private Integer stockActual;
@@ -72,11 +74,11 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public Double getPrecioUnitario() {
+    public BigDecimal getPrecioUnitario() {
         return precioUnitario;
     }
 
-    public void setPrecioUnitario(Double precioUnitario) {
+    public void setPrecioUnitario(BigDecimal precioUnitario) {
         this.precioUnitario = precioUnitario;
     }
 
