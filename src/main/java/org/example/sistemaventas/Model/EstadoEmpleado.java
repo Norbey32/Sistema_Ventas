@@ -1,4 +1,10 @@
 package org.example.sistemaventas.Model;
 
-public class EstadoEmpleado {
+public enum EstadoEmpleado {
+    ACTIVO,
+    INACTIVO,
+    VACACIONES,
+    LICENCIA,
+    SUSPENDIDO,
+    RETIRADO
 }

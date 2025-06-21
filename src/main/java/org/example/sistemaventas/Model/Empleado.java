@@ -1,4 +1,4 @@
-package com.example.sistemaventas.model;
+package org.example.sistemaventas.Model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
@@ -29,4 +29,62 @@ public class Empleado {
     private EstadoEmpleado estado; // Enum: ACTIVO, INACTIVO, etc.
 
     // Getters y Setters
+
+    public Long getEmpleado_id() {
+        return empleado_id;
+    }
+
+    public void setEmpleado_id(Long empleado_id) {
+        this.empleado_id = empleado_id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public LocalDate getFechaContratacion() {
+        return fechaContratacion;
+    }
+
+    public void setFechaContratacion(LocalDate fechaContratacion) {
+        this.fechaContratacion = fechaContratacion;
+    }
+
+    public EstadoEmpleado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoEmpleado estado) {
+        this.estado = estado;
+    }
 }
+
+// cargo_ida

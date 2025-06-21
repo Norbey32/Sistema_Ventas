@@ -1,4 +1,4 @@
-package com.example.sistemaventas.model;
+package org.example.sistemaventas.Model;
 
 import jakarta.persistence.*;
 import java.util.List;
@@ -20,4 +20,36 @@ public class Categoria {
     private List<Producto> productos;
 
     // Getters y Setters
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Long getCategoria_id() {
+        return categoria_id;
+    }
+
+    public void setCategoria_id(Long categoria_id) {
+        this.categoria_id = categoria_id;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
+    }
 }

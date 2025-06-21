@@ -1,7 +1,7 @@
-package com.sistema.ventas.controller;
+package org.example.sistemaventas.Controller;
 
-import com.sistema.ventas.model.Proveedor;
-import com.sistema.ventas.service.ProveedorService; // Usamos tu servicio
+import org.example.sistemaventas.Model.Proveedor;
+import org.example.sistemaventas.Service.ProveedorService; // Usamos tu servicio
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,9 @@
 package org.example.sistemaventas.Model;
 
-public class EstadoVenta {
+public enum EstadoVenta {
+    COMPLETADA,
+    PENDIENTE,
+    CANCELADA,
+    DEVUELTA,
+    EN_PROCESO
 }

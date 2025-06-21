@@ -1,7 +1,7 @@
-package com.sistema.ventas.controller;
+package org.example.sistemaventas.Controller;
 
-import com.sistema.ventas.model.Categoria;
-import com.sistema.ventas.service.CategoriaService;
+import org.example.sistemaventas.Model.Categoria;
+import org.example.sistemaventas.Service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +21,7 @@ public class CategoriaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Categoria> obtenerCategoriaPorId(@PathVariable Integer id) {
+    public ResponseEntity<Categoria> obtenerCategoriaPorId(@PathVariable Long id) {
         Categoria categoria = categoriaService.findById(id);
         if (categoria == null) {
             return ResponseEntity.notFound().build();
@@ -36,13 +36,13 @@ public class CategoriaController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Categoria> actualizarCategoria(
-            @PathVariable Integer id,
+            @PathVariable Long id,
             @RequestBody Categoria categoria) {
         return ResponseEntity.ok(categoriaService.update(id, categoria));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarCategoria(@PathVariable Integer id) {
+    public ResponseEntity<Void> eliminarCategoria(@PathVariable Long id) {
         categoriaService.delete(id);
         return ResponseEntity.noContent().build();
     }

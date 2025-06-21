@@ -1,7 +1,7 @@
-package com.example.sistemaventas.service;
+package org.example.sistemaventas.Service;
 
-import com.example.sistemaventas.model.Producto;
-import com.example.sistemaventas.repository.ProductoRepository;
+import org.example.sistemaventas.Model.Producto;
+import org.example.sistemaventas.Repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

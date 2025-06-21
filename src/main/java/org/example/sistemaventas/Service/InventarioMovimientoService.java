@@ -1,10 +1,12 @@
-package com.example.sistemaventas.service;
+package org.example.sistemaventas.Service;
 
-import com.example.sistemaventas.model.*;
-import com.example.sistemaventas.repository.*;
+import org.example.sistemaventas.Model.*;
+import org.example.sistemaventas.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
+
 
 @Service
 public class InventarioMovimientoService {

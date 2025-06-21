@@ -1,7 +1,7 @@
-package com.example.sistemaventas.service;
+package org.example.sistemaventas.Service;
 
-import com.example.sistemaventas.model.Categoria;
-import com.example.sistemaventas.repository.CategoriaRepository;
+import org.example.sistemaventas.Model.Categoria;
+import org.example.sistemaventas.Repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -24,6 +24,12 @@ public class CategoriaService {
         return categoriaRepository.save(categoria);
     }
 
+    public Categoria update(Long id, Categoria categoria) {
+        Categoria existingCategoria = findById(id);
+        existingCategoria.setNombre(categoria.getNombre());
+        existingCategoria.setDescripcion(categoria.getDescripcion());
+        return categoriaRepository.save(existingCategoria);
+    }
     public List<Categoria> searchByNombre(String nombre) {
         return categoriaRepository.findByNombreContainingIgnoreCase(nombre);
     }

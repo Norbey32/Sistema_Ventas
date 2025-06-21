@@ -1,6 +1,6 @@
-package com.example.sistemaventas.repository;
+package org.example.sistemaventas.Repository;
 
-import com.example.sistemaventas.model.InventarioMovimiento;
+import org.example.sistemaventas.Model.InventarioMovimiento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;

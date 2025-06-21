@@ -1,6 +1,6 @@
-package com.example.sistemaventas.repository;
+package org.example.sistemaventas.Repository;
 
-import com.example.sistemaventas.model.Proveedor;
+import org.example.sistemaventas.Model.Proveedor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;
