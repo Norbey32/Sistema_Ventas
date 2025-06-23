@@ -11,14 +11,14 @@ import java.util.List;
 public class Venta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long venta_id;
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id", nullable = false)
+    @JoinColumn(name = "cliente_id", referencedColumnName = "id")
     private Cliente cliente;
 
     @ManyToOne
-    @JoinColumn(name = "empeando_id", nullable = false)
+    @JoinColumn(name = "empeando_id", referencedColumnName = "id")
     private Empleado empleado;
 
     @Column(name = "fecha_venta", nullable = false)
@@ -48,11 +48,11 @@ public class Venta {
     // Getters y Setters
 
     public Long getVenta_id() {
-        return venta_id;
+        return id;
     }
 
     public void setVenta_id(Long venta_id) {
-        this.venta_id = venta_id;
+        this.id = venta_id;
     }
 
     public Cliente getCliente() {
@@ -133,5 +133,13 @@ public class Venta {
 
     public void setDetalles(List<DetalleVenta> detalles) {
         this.detalles = detalles;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

@@ -12,11 +12,11 @@ public class DetalleVenta {
     private Long detalle_id;
 
     @ManyToOne
-    @JoinColumn(name = "venta_id", nullable = false)
+    @JoinColumn(name = "venta_id", referencedColumnName = "id")
     private Venta venta;
 
     @ManyToOne
-    @JoinColumn(name = "producto_id", nullable = false)
+    @JoinColumn(name = "producto_id", referencedColumnName = "id")
     private Producto producto;
 
     @Column(nullable = false)

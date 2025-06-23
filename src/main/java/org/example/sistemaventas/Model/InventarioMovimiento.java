@@ -11,7 +11,7 @@ public class InventarioMovimiento {
     private Long movimiento_id;
 
     @ManyToOne
-    @JoinColumn(name = "producto_id", nullable = false)
+    @JoinColumn(name = "producto_id", referencedColumnName = "id")
     private Producto producto;
 
     @Enumerated(EnumType.STRING)
