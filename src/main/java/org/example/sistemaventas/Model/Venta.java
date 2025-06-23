@@ -14,11 +14,11 @@ public class Venta {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id", referencedColumnName = "id")
+    @JoinColumn(name = "cliente_id", referencedColumnName = "cliente_id")
     private Cliente cliente;
 
     @ManyToOne
-    @JoinColumn(name = "empeando_id", referencedColumnName = "id")
+    @JoinColumn(name = "empleado_id", referencedColumnName = "empleado_id")
     private Empleado empleado;
 
     @Column(name = "fecha_venta", nullable = false)

@@ -16,7 +16,7 @@ public class DetalleVenta {
     private Venta venta;
 
     @ManyToOne
-    @JoinColumn(name = "producto_id", referencedColumnName = "id")
+    @JoinColumn(name = "producto_id", referencedColumnName = "producto_id")
     private Producto producto;
 
     @Column(nullable = false)
