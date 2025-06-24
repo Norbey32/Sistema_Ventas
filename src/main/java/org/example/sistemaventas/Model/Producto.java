@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long producto_id;
+    private Long id;
 
     @Column(length = 50, unique = true)
     private String codigo;
@@ -43,11 +43,11 @@ public class Producto {
     // Getters y Setters
 
     public Long getProducto_id() {
-        return producto_id;
+        return id;
     }
 
     public void setProducto_id(Long producto_id) {
-        this.producto_id = producto_id;
+        this.id = producto_id;
     }
 
     public String getCodigo() {

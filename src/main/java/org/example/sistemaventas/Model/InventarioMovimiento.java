@@ -8,10 +8,10 @@ import java.time.LocalDateTime;
 public class InventarioMovimiento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long movimiento_id;
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "producto_id", referencedColumnName = "producto_id")
+    @JoinColumn(name = "producto_id", referencedColumnName = "id")
     private Producto producto;
 
     @Enumerated(EnumType.STRING)
@@ -37,11 +37,11 @@ public class InventarioMovimiento {
     // Getters y Setters
 
     public Long getMovimiento_id() {
-        return movimiento_id;
+        return id;
     }
 
     public void setMovimiento_id(Long movimiento_id) {
-        this.movimiento_id = movimiento_id;
+        this.id = movimiento_id;
     }
 
     public Producto getProducto() {
