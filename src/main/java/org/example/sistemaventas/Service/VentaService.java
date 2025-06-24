@@ -31,7 +31,7 @@ public class VentaService {
                 throw new RuntimeException("Stock insuficiente para: " + producto.getNombre());
             }
 
-            productoService.updateStock(producto.getProducto_id(), -cantidad);
+            productoService.updateStock(producto.getId(), -cantidad);
 
             // Usa directamente el BigDecimal o convierte adecuadamente
             BigDecimal precioUnitario = detalle.getPrecioUnitario(); // Si ya es BigDecimal

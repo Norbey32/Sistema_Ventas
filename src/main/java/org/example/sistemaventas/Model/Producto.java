@@ -42,11 +42,11 @@ public class Producto {
 
     // Getters y Setters
 
-    public Long getProducto_id() {
+    public Long getId() {
         return id;
     }
 
-    public void setProducto_id(Long producto_id) {
+    public void setId(Long producto_id) {
         this.id = producto_id;
     }
 

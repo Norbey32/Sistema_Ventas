@@ -36,11 +36,11 @@ public class InventarioMovimiento {
 
     // Getters y Setters
 
-    public Long getMovimiento_id() {
+    public Long getId() {
         return id;
     }
 
-    public void setMovimiento_id(Long movimiento_id) {
+    public void setId(Long movimiento_id) {
         this.id = movimiento_id;
     }
 
