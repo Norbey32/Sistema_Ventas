@@ -35,10 +35,10 @@ public class EmpleadoService {
         }
         // Validar email único
         if (empleadoRepository.findByEmail(empleado.getEmail()) != null &&
-                !empleadoRepository.findByEmail(empleado.getEmail()).getEmpleado_id().equals(id)) {
+                !empleadoRepository.findByEmail(empleado.getEmail()).getId().equals(id)) {
             throw new RuntimeException("El email ya está registrado");
         }
-        empleado.setEmpleado_id(id);
+        empleado.setId(id);
         return empleadoRepository.save(empleado);
     }
     public void deleteById(Long id) {

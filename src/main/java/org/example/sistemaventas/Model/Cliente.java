@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cliente_id;
+    private Long id;
 
     @Column(nullable = false, length = 100)
     private String nombre;
@@ -38,9 +38,9 @@ public class Cliente {
     private LocalDateTime fechaRegistro;
 
     // Getters y Setters (usa Lombok si prefieres)
-    public Long getCliente_id() { return cliente_id; }
-    public void setCliente_id(Long cliente_id) { this.cliente_id = cliente_id; }
-    // ... (otros getters y setters)
+
+    public Long getId() { return id; }
+    public void setId(Long cliente_id) { this.id = cliente_id; }
 
     public String getNombre() {
         return nombre;

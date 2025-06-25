@@ -8,5 +8,4 @@ import java.util.List;
 @Repository
 public interface InventarioMovimientoRepository extends JpaRepository<InventarioMovimiento, Long> {
     List<InventarioMovimiento> findByProductoId(Long productoId);
-    List<InventarioMovimiento> findByMovimientoId(String tipo); // Ej: "ENTRADA", "SALIDA"
 }
