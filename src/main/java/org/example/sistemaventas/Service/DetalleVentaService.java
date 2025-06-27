@@ -23,6 +23,22 @@ public class DetalleVentaService {
         }
         return detalleVentaRepository.save(detalle);
     }
+
+public List<DetalleVenta> update(Long id, DetalleVenta detalleVenta) {
+        // Verifica si el detalle de venta existe
+        if (!detalleVentaRepository.existsById(id)) {
+            throw new RuntimeException("Detalle de venta no encontrado");
+        }
+        // Calcula el subtotal si es necesario
+        if (detalleVenta.getPrecioUnitario() != null && detalleVenta.getCantidad() != null) {
+            BigDecimal subtotal = detalleVenta.getPrecioUnitario()
+                    .multiply(BigDecimal.valueOf(detalleVenta.getCantidad()));
+            detalleVenta.setSubtotal(subtotal);
+        }
+        detalleVenta.setDetalle_id(id);
+        return List.of(detalleVentaRepository.save(detalleVenta));
+    }
+
     public List<DetalleVenta> findAll() {
         return detalleVentaRepository.findAll();
     }

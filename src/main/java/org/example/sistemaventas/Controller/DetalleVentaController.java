@@ -20,8 +20,8 @@ public class DetalleVentaController {
         return ResponseEntity.ok(detalleVentaService.findAll());
     }
 
-@GetMapping("/venta/{ventaId}")
-public ResponseEntity<List<DetalleVenta>> obtenerDetallesPorVenta(
+    @GetMapping("/venta/{ventaId}")
+    public ResponseEntity<List<DetalleVenta>> obtenerDetallesPorVenta(
         @PathVariable Long ventaId) {
     return ResponseEntity.ok(detalleVentaService.findById(ventaId));
 }
@@ -32,6 +32,13 @@ public ResponseEntity<List<DetalleVenta>> obtenerDetallesPorVenta(
         return ResponseEntity.ok(detalleVentaService.save(detalleVenta));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<List<DetalleVenta>> actualizarDetalleVenta(
+            @PathVariable Long id,
+            @RequestBody DetalleVenta detalleVenta) {
+        return ResponseEntity.ok(detalleVentaService.update( id, detalleVenta));
+
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarDetalleVenta(@PathVariable Long id) {
         detalleVentaService.deleteDetalleVentaById(id);
