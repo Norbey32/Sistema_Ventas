@@ -1,7 +1,9 @@
 package org.example.sistemaventas.Controller;
 
 import org.example.sistemaventas.Model.Cliente;
+import org.example.sistemaventas.Model.DetalleVenta;
 import org.example.sistemaventas.Service.ClienteService;
+import org.example.sistemaventas.Service.DetalleVentaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,14 +21,6 @@ public class ClienteController {
     @GetMapping
     public ResponseEntity<List<Cliente>> listarClientes() {
         return ResponseEntity.ok(clienteService.findAll());
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Optional<Cliente>> obtenerCliente(@PathVariable Long id) {
-        Optional<Cliente> cliente = clienteService.findById(id);
-        return (cliente != null)
-                ? ResponseEntity.ok(cliente)
-                : ResponseEntity.notFound().build();
     }
 
     @PostMapping

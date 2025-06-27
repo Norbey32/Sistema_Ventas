@@ -15,18 +15,16 @@ public class DetalleVentaController {
     @Autowired
     private DetalleVentaService detalleVentaService;
 
-    @GetMapping("/venta/{ventaId}")
-    public ResponseEntity<List<DetalleVenta>> obtenerDetallesPorVenta(
-            @PathVariable Long ventaId) {
-        return ResponseEntity.ok(detalleVentaService.findById(ventaId));
+    @GetMapping
+    public ResponseEntity<List<DetalleVenta>> getAllDetalleVentas() {
+        return ResponseEntity.ok(detalleVentaService.findAll());
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<Optional<DetalleVenta>> obtenerDetalleVenta(@PathVariable Long id) {
-        DetalleVenta detalleVenta = detalleVentaService.findById(id);
-        return (detalleVenta != null)
-                ? ResponseEntity.ok(DetalleVenta)
-                : ResponseEntity.notFound().build();
-    }
+
+@GetMapping("/venta/{ventaId}")
+public ResponseEntity<List<DetalleVenta>> obtenerDetallesPorVenta(
+        @PathVariable Long ventaId) {
+    return ResponseEntity.ok(detalleVentaService.findById(ventaId));
+}
 
     @PostMapping
     public ResponseEntity<DetalleVenta> crearDetalleVenta(
