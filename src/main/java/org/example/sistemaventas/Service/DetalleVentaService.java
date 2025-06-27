@@ -27,7 +27,7 @@ public class DetalleVentaService {
         return detalleVentaRepository.findAll();
     }
 
-    public List<DetalleVenta> findByVentaId(Long ventaId) {
+    public List<DetalleVenta> findById(Long ventaId) {
         return detalleVentaRepository.findByVenta_Id(ventaId);
     }
 

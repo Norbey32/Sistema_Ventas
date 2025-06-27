@@ -1,6 +1,8 @@
 package org.example.sistemaventas.Model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import org.antlr.v4.runtime.misc.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -21,7 +23,9 @@ public class Venta {
     @JoinColumn(name = "empleado_id", referencedColumnName = "id")
     private Empleado empleado;
 
+    @NotNull
     @Column(name = "fecha_venta", nullable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime fechaVenta;
 
     @Column(precision = 10, scale = 2)
