@@ -1,6 +1,9 @@
 package org.example.sistemaventas.Model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import org.antlr.v4.runtime.misc.NotNull;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,7 +23,9 @@ public class InventarioMovimiento {
     @Column(nullable = false)
     private Integer cantidad;
 
+    @NotNull
     @Column(name = "fecha_movimiento", nullable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime fechaMovimiento;
 
     @Column(columnDefinition = "TEXT")
@@ -99,4 +104,5 @@ public class InventarioMovimiento {
     public void setVenta(Venta venta) {
         this.venta = venta;
     }
+
 }

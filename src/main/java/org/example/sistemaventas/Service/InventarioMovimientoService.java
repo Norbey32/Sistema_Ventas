@@ -52,7 +52,17 @@ public class InventarioMovimientoService {
         return movimientoRepository.save(movimiento);
     }
 
-    public List<InventarioMovimiento> findByProductoId(Long productoId) {
-        return movimientoRepository.findByProductoId(productoId);
+    public InventarioMovimiento update(Long id, InventarioMovimiento movimiento) {
+        if (!movimientoRepository.existsById(id)) {
+            throw new RuntimeException("Movimiento no encontrado");
+        }
+        movimiento.setId(id);
+        return movimientoRepository.save(movimiento);
+    }
+    public void deleteById(Long id) {
+        if (!movimientoRepository.existsById(id)) {
+            throw new RuntimeException("Movimiento no encontrado");
+        }
+        movimientoRepository.deleteById(id);
     }
 }

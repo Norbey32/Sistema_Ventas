@@ -35,9 +35,20 @@ public class InventarioMovimientoController {
         return ResponseEntity.ok(inventarioMovimientoService.save(movimiento));
     }
 
-    @GetMapping("/producto/{productoId}")
-    public ResponseEntity<List<InventarioMovimiento>> obtenerMovimientosPorProducto(
-            @PathVariable Long productoId) {
-        return ResponseEntity.ok(inventarioMovimientoService.findByProductoId(productoId));
+    @PutMapping("/{id}")
+    public ResponseEntity<InventarioMovimiento> actualizarMovimiento(
+            @PathVariable Long id,
+            @RequestBody InventarioMovimiento movimiento) {
+        InventarioMovimiento actualizado = inventarioMovimientoService.update(id, movimiento);
+        if (actualizado == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(actualizado);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarMovimiento(@PathVariable Long id) {
+        inventarioMovimientoService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }
