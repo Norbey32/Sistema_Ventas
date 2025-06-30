@@ -25,7 +25,7 @@ public class InventarioMovimiento {
 
     @NotNull
     @Column(name = "fecha_movimiento", nullable = false)
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime fechaMovimiento;
 
     @Column(columnDefinition = "TEXT")

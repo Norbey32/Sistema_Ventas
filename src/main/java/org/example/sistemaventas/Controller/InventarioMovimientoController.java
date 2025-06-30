@@ -38,12 +38,8 @@ public class InventarioMovimientoController {
     @PutMapping("/{id}")
     public ResponseEntity<InventarioMovimiento> actualizarMovimiento(
             @PathVariable Long id,
-            @RequestBody InventarioMovimiento movimiento) {
-        InventarioMovimiento actualizado = inventarioMovimientoService.update(id, movimiento);
-        if (actualizado == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(actualizado);
+            @RequestBody InventarioMovimiento inventariomovimiento) {
+        return ResponseEntity.ok(inventarioMovimientoService.update(id, inventariomovimiento));
     }
 
     @DeleteMapping("/{id}")
