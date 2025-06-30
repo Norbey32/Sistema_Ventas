@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -36,11 +35,9 @@ public class ProductoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Producto> actualizarProducto(
-            @PathVariable Long id,
-            @RequestBody Map<String, Integer> payload) { // O tu DTO de StockUpdate
-        int cantidad = payload.get("cantidad");
-        return ResponseEntity.ok(productoService.updateStock(id, cantidad));
+    public ResponseEntity<Producto> actualizarProducto(@PathVariable Long id, @RequestBody Producto producto) {
+        Producto productoActualizado = productoService.update(id, producto.getStockActual());
+        return ResponseEntity.ok(productoActualizado);
     }
 
     @DeleteMapping("/{id}")

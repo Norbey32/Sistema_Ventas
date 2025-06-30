@@ -23,7 +23,7 @@ public class ProductoService {
     public Producto save(Producto producto) {
         return productoRepository.save(producto);
     }
-    public Producto updateStock(Long productoId, int cantidad) {
+    public Producto update(Long productoId, int cantidad) {
         Producto producto = productoRepository.findById(productoId)
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
         producto.setStockActual(producto.getStockActual() + cantidad);
