@@ -23,9 +23,9 @@ public class InventarioMovimientoService {
 
         // Actualizar stock según el tipo de movimiento
         if (tipo.equals("ENTRADA")) {
-            productoService.update(productoId, cantidad);
+            productoService.updateStock(productoId, cantidad);
         } else if (tipo.equals("SALIDA")) {
-            productoService.update(productoId, -cantidad);
+            productoService.updateStock(productoId, -cantidad);
         }
 
         // Registrar movimiento

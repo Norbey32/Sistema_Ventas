@@ -22,11 +22,10 @@ public class ProductoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Producto>> obtenerProducto(@PathVariable Long id) {
+    public ResponseEntity<Producto> obtenerProducto(@PathVariable Long id) {
         Optional<Producto> producto = productoService.findById(id);
-        return (producto != null)
-                ? ResponseEntity.ok(producto)
-                : ResponseEntity.notFound().build();
+        return producto.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -36,8 +35,22 @@ public class ProductoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Producto> actualizarProducto(@PathVariable Long id, @RequestBody Producto producto) {
-        Producto productoActualizado = productoService.update(id, producto.getStockActual());
-        return ResponseEntity.ok(productoActualizado);
+        try {
+            Producto productoActualizado = productoService.update(id, producto);
+            return ResponseEntity.ok(productoActualizado);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PatchMapping("/{id}/stock")
+    public ResponseEntity<Producto> actualizarStock(@PathVariable Long id, @RequestParam int cantidad) {
+        try {
+            Producto productoActualizado = productoService.updateStock(id, cantidad);
+            return ResponseEntity.ok(productoActualizado);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
