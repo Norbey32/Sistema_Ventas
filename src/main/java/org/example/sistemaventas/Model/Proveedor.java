@@ -1,6 +1,7 @@
 package org.example.sistemaventas.Model;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.List;
 
 @Entity
@@ -35,10 +36,10 @@ public class Proveedor {
     private String codigoPostal;
 
     @OneToMany(mappedBy = "proveedor")
+    @JsonManagedReference("proveedor-productos")
     private List<Producto> productos;
 
     // Getters y Setters
-
     public Long getProveedor_id() {
         return proveedor_id;
     }

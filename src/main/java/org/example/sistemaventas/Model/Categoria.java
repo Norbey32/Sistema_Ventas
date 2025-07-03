@@ -1,6 +1,7 @@
 package org.example.sistemaventas.Model;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.List;
 
 @Entity
@@ -17,10 +18,10 @@ public class Categoria {
     private String descripcion;
 
     @OneToMany(mappedBy = "categoria")
+    @JsonManagedReference("categoria-productos")
     private List<Producto> productos;
 
     // Getters y Setters
-
     public String getNombre() {
         return nombre;
     }

@@ -1,7 +1,7 @@
 package org.example.sistemaventas.Model;
 
 import jakarta.persistence.*;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.math.BigDecimal;
 
 @Entity
@@ -31,17 +31,18 @@ public class Producto {
 
     @ManyToOne
     @JoinColumn(name = "categoria_id")
+    @JsonBackReference("categoria-productos")
     private Categoria categoria;
 
     @ManyToOne
     @JoinColumn(name = "proveedor_id")
+    @JsonBackReference("proveedor-productos")
     private Proveedor proveedor;
 
     @Enumerated(EnumType.STRING)
-    private EstadoProducto estado; // Enum: ACTIVO, INACTIVO, etc.
+    private EstadoProducto estado;
 
     // Getters y Setters
-
     public Long getId() {
         return id;
     }
