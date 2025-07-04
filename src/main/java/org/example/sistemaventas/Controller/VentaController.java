@@ -41,6 +41,16 @@ public class VentaController {
         }
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Venta> actualizarVenta(@PathVariable Long id, @RequestBody Venta venta) {
+        try {
+            Venta ventaActualizada = ventaService.actualizarVenta(id, venta, venta.getDetalles());
+            return ResponseEntity.ok(ventaActualizada);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarVenta(@PathVariable Long id) {
         ventaService.delete(id);

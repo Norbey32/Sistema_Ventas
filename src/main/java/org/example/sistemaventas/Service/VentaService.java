@@ -22,26 +22,49 @@ public class VentaService {
     @Autowired
     private ProductoService productoService;
 
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    @Autowired
+    private EmpleadoRepository empleadoRepository;
+
     @Transactional
     public Venta crearVenta(Venta venta, List<DetalleVenta> detalles) {
+        // Obtener referencias completas de cliente y empleado
+        if (venta.getCliente() != null && venta.getCliente().getId() != null) {
+            Cliente cliente = clienteRepository.findById(venta.getCliente().getId())
+                    .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+            venta.setCliente(cliente);
+        }
+
+        if (venta.getEmpleado() != null && venta.getEmpleado().getId() != null) {
+            Empleado empleado = empleadoRepository.findById(venta.getEmpleado().getId())
+                    .orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
+            venta.setEmpleado(empleado);
+        }
+
         BigDecimal subtotal = BigDecimal.ZERO;
 
         for (DetalleVenta detalle : detalles) {
-            Producto producto = detalle.getProducto();
-            int cantidad = detalle.getCantidad();
+            // Obtener producto completo por ID
+            if (detalle.getProducto() != null && detalle.getProducto().getId() != null) {
+                Producto producto = productoService.findById(detalle.getProducto().getId())
+                        .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+                detalle.setProducto(producto);
 
-            if (producto.getStockActual() < cantidad) {
-                throw new RuntimeException("Stock insuficiente para: " + producto.getNombre());
+                int cantidad = detalle.getCantidad();
+                if (producto.getStockActual() < cantidad) {
+                    throw new RuntimeException("Stock insuficiente para: " + producto.getNombre());
+                }
+
+                // Actualizar stock
+                productoService.updateStock(producto.getId(), -cantidad);
+
+                BigDecimal precioUnitario = detalle.getPrecioUnitario();
+                BigDecimal subtotalDetalle = precioUnitario.multiply(BigDecimal.valueOf(cantidad));
+                detalle.setSubtotal(subtotalDetalle);
+                subtotal = subtotal.add(subtotalDetalle);
             }
-
-            // Usar updateStock en lugar de update
-            productoService.updateStock(producto.getId(), -cantidad);
-
-            BigDecimal precioUnitario = detalle.getPrecioUnitario();
-            BigDecimal subtotalDetalle = precioUnitario.multiply(BigDecimal.valueOf(cantidad));
-
-            detalle.setSubtotal(subtotalDetalle);
-            subtotal = subtotal.add(subtotalDetalle);
         }
 
         venta.setFechaVenta(LocalDateTime.now());
@@ -58,6 +81,81 @@ public class VentaService {
 
         detalles.forEach(detalle -> detalle.setVenta(ventaGuardada));
         detalleVentaRepository.saveAll(detalles);
+
+        return ventaGuardada;
+    }
+
+    @Transactional
+    public Venta actualizarVenta(Long ventaId, Venta ventaActualizada, List<DetalleVenta> nuevosDetalles) {
+        // Buscar la venta existente
+        Venta ventaExistente = ventaRepository.findById(ventaId)
+                .orElseThrow(() -> new RuntimeException("Venta no encontrada"));
+
+        // Revertir stock de los detalles anteriores
+        List<DetalleVenta> detallesAnteriores = detalleVentaRepository.findByVenta_Id(ventaId);
+        for (DetalleVenta detalleAnterior : detallesAnteriores) {
+            productoService.updateStock(detalleAnterior.getProducto().getId(), detalleAnterior.getCantidad());
+        }
+
+        // Eliminar detalles anteriores
+        detalleVentaRepository.deleteAll(detallesAnteriores);
+
+        // Actualizar campos básicos
+        if (ventaActualizada.getCliente() != null && ventaActualizada.getCliente().getId() != null) {
+            Cliente cliente = clienteRepository.findById(ventaActualizada.getCliente().getId())
+                    .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+            ventaExistente.setCliente(cliente);
+        }
+
+        if (ventaActualizada.getEmpleado() != null && ventaActualizada.getEmpleado().getId() != null) {
+            Empleado empleado = empleadoRepository.findById(ventaActualizada.getEmpleado().getId())
+                    .orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
+            ventaExistente.setEmpleado(empleado);
+        }
+
+        ventaExistente.setImpuesto(ventaActualizada.getImpuesto());
+        ventaExistente.setDescuento(ventaActualizada.getDescuento());
+        ventaExistente.setMetodoPago(ventaActualizada.getMetodoPago());
+
+        // Procesar nuevos detalles
+        BigDecimal subtotal = BigDecimal.ZERO;
+
+        for (DetalleVenta detalle : nuevosDetalles) {
+            if (detalle.getProducto() != null && detalle.getProducto().getId() != null) {
+                Producto producto = productoService.findById(detalle.getProducto().getId())
+                        .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+                detalle.setProducto(producto);
+
+                int cantidad = detalle.getCantidad();
+                if (producto.getStockActual() < cantidad) {
+                    throw new RuntimeException("Stock insuficiente para: " + producto.getNombre());
+                }
+
+                // Actualizar stock
+                productoService.updateStock(producto.getId(), -cantidad);
+
+                BigDecimal precioUnitario = detalle.getPrecioUnitario();
+                BigDecimal subtotalDetalle = precioUnitario.multiply(BigDecimal.valueOf(cantidad));
+                detalle.setSubtotal(subtotalDetalle);
+                subtotal = subtotal.add(subtotalDetalle);
+
+                // Asignar la venta al detalle
+                detalle.setVenta(ventaExistente);
+            }
+        }
+
+        // Actualizar totales
+        ventaExistente.setSubtotal(subtotal);
+        BigDecimal total = subtotal
+                .add(ventaExistente.getImpuesto() != null ? ventaExistente.getImpuesto() : BigDecimal.ZERO)
+                .subtract(ventaExistente.getDescuento() != null ? ventaExistente.getDescuento() : BigDecimal.ZERO);
+        ventaExistente.setTotal(total);
+
+        // Guardar venta actualizada
+        Venta ventaGuardada = ventaRepository.save(ventaExistente);
+
+        // Guardar nuevos detalles
+        detalleVentaRepository.saveAll(nuevosDetalles);
 
         return ventaGuardada;
     }

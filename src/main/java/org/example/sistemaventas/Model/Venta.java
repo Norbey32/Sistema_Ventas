@@ -1,9 +1,9 @@
 package org.example.sistemaventas.Model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.antlr.v4.runtime.misc.NotNull;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -41,16 +41,16 @@ public class Venta {
     private BigDecimal total;
 
     @Enumerated(EnumType.STRING)
-    private MetodoPago metodoPago; // Enum: EFECTIVO, TARJETA, etc.
+    private MetodoPago metodoPago;
 
     @Enumerated(EnumType.STRING)
-    private EstadoVenta estado; // Enum: COMPLETADA, CANCELADA, etc.
+    private EstadoVenta estado;
 
     @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL)
+    @JsonManagedReference("venta-detalles")
     private List<DetalleVenta> detalles;
 
     // Getters y Setters
-
     public Long getVenta_id() {
         return id;
     }
