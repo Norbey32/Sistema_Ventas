@@ -22,15 +22,23 @@ public class VentaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Venta> obtenerVenta(@PathVariable Long id) {
-        Venta venta = ventaService.findById(id);
-        return (venta != null)
-                ? ResponseEntity.ok(venta)
-                : ResponseEntity.notFound().build();
+        try {
+            Venta venta = ventaService.findById(id);
+            return ResponseEntity.ok(venta);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
     public ResponseEntity<Venta> crearVenta(@RequestBody Venta venta) {
-        return ResponseEntity.ok(ventaService.save(venta));
+        try {
+            // Usar el método crearVenta que maneja los detalles y cálculos
+            Venta ventaCreada = ventaService.crearVenta(venta, venta.getDetalles());
+            return ResponseEntity.ok(ventaCreada);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @DeleteMapping("/{id}")

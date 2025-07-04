@@ -1,7 +1,7 @@
 package org.example.sistemaventas.Model;
 
 import jakarta.persistence.*;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.math.BigDecimal;
 
 @Entity
@@ -13,6 +13,7 @@ public class DetalleVenta {
 
     @ManyToOne
     @JoinColumn(name = "venta_id", referencedColumnName = "id")
+    @JsonBackReference("venta-detalles")
     private Venta venta;
 
     @ManyToOne
@@ -32,7 +33,6 @@ public class DetalleVenta {
     private BigDecimal subtotal;
 
     // Getters y Setters
-
     public Long getDetalle_id() {
         return detalle_id;
     }
