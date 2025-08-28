@@ -42,7 +42,7 @@ mvn clean install
 mvn spring-boot:run
 
 
-## 🧪 Ejecución de pruebasPara correr las pruebas:
+## 🧪 Ejecución de pruebas:
 
 ### Pantalla clientecontrollertest
 ![Pantalla clientecontrollertest](img/clientecontrollertest.png)
@@ -57,6 +57,7 @@ mvn spring-boot:run
 ![Pantalla pruebaCRUDClientes](img/pruebaCRUDClientes.png)
 
 
+## Para correr las pruebas:
 ### - mvn test
 
 
@@ -77,5 +78,4 @@ mvn spring-boot:run
 
 ## 📄 Licencia
 
-Este proyecto está bajo la licencia MIT. Consulta el archivo LICENSE para más detalles.Si quieres, puedo agregar plantillas de ejemplo para las capturas de pantalla con marcadores y títulos listos para que solo pegues las imágenes.
-¿Quieres que te lo prepare así para que el README quede de una para publicar?
+Este proyecto está bajo la licencia MIT. Consulta el archivo LICENSE para más detalles.
